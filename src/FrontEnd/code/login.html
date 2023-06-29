@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+
+    <link href="css/login.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+
+
+
+<body>
+
+
+    <section class="caixa">
+        <div class="main">
+            <input type="checkbox" id="chk" aria-hidden="true">
+
+            <div class="signup">
+                <form action="/submit-form" method="POST" onsubmit="return CriarUsuario()">
+                    <label for="chk" aria-hidden="true">Cadastrar</label>
+                    <input type="text" id="nome" name="nome" placeholder="Nome" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <input type="password" id="senha" name="senha" placeholder="Senha" required>
+                    <button id="button-submit" type="submit">Cadastrar</button>
+                </form>
+                <a href="index.html">Voltar ao site</a>
+            </div>
+
+            <div class="login">
+                <form id="login-form" method="post" onsubmit="return LoginUsuario()">
+                    <label for="chk" aria-hidden="true">Entrar</label>
+                    <input type="email" id="email_login" name="email_login" placeholder="Email" required>
+                    <input type="password" id="senha_login" name="senha_login" placeholder="Senha" required>
+                    <button type="submit">Entrar</button>
+
+                </form>
+                <a href="index.html" style="color: #212529;">Voltar ao site</a>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="js/login.js"></script>
+
+
+    <script>
+
+        function CriarUsuario() {
+
+            // ------------------- LOCAL STORAGE PART ----------------
+
+            let nome = document.getElementById('nome').value;
+            let email = document.getElementById('email').value;
+            let senha = document.getElementById('senha').value;
+
+            // Adiciona o usuário no banco de dados
+            addUser(nome, senha, email);
+
+            console.log("returning");
+
+            return true;
+
+        }
+
+        function LoginUsuario() {
+            // Cancela a submissão do formulário para tratar sem fazer refresh da tela
+            
+            console.log("logando usuario");
+
+            // Obtem os dados de login e senha a partir do formulário de login
+            var email = document.getElementById('email_login').value;
+            var senha = document.getElementById('senha_login').value;
+
+            console.log(email);
+            console.log(senha);
+
+            // Valida login e se estiver ok, redireciona para tela inicial da aplicação
+            resultadoLogin = loginUser(email, senha);
+            if (resultadoLogin) {
+                window.location.href = '/';
+            }
+            else { // Se login falhou, avisa ao usuário
+                alert('Usuário ou senha incorretos');
+            }
+
+            return false;
+        }
+    
+
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+</body>
+
+
+
+
+
+
+</html>

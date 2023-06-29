@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/meuclube.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+
+</head>
+
+<body id="page-top" style="overflow-y: hidden;" onload="init()">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">MarcoL4</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars ms-1"></i>
+      </button>
+    </div>
+  </nav>
+
+  <section class="page-section" id="clube">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+          <div class="card rounded-3 text-black">
+            <div class="row g-0">
+              <div class="col-lg-6" style="background-color:#464646; border-radius:8px 0px 0px 8px ;" id="cardcinza">
+                <div class="card-body p-md-5 mx-md-4">
+
+                  <div class="text-center">
+                    <img src="assets/img/logomarcol4.png" style="width: 185px;" alt="logo">
+                    
+                    
+                    
+                    <table id="grid-contatos" class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Nome</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Cidade</th>
+                              <th scope="col">Estado</th>
+                          </tr>
+                      </thead>
+                      <tbody id="table-contatos">
+                          <tr>
+                              <td scope="row">1</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                          </tr>
+                      </tbody>
+                  </table>
+                    
+                    <div> 
+                      <a class="btn btn-primary" href="cad_membro.html">Cadastrar Membros</a>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                <div class="text-dark px-3 py-4 p-md-5 mx-md-4">
+                  <h4 class="mb-2">Cadastre seus membros e tenha uma experiência melhor!</h4>
+                  <p class="small mb-0" style="color: #464646;">Cadastrar os membros do seu clube no MARCOL4 é uma
+                    maneira eficiente de facilitar sua navegação. Ao ter os dados dos membros cadastrados no site, é
+                    possível agilizar as reservas, tornando a experiência mais rápida e conveniente para todos. </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js%22%3E"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="js/visual_clube.js"></script>
+
+  <script>
+
+    function init() {
+
+        exibeContatos();
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MarcoL4</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+
+
+</head>
+
+<body id="page-top">
+
+    <section class="page-section" id="criar_clube">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Registre suas Viagens</h2>
+                <h3 class="section-subheading">Deixe Registrado suas viagens</h3>
+            </div>
+
+
+            <form action="/submit-form-viagem-onibus-bd" method="post" id="registra_viagem_form" onsubmit="AdicionaLocal()">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="estado">Estado de Sáida:</label>
+                            <select id="estado" class="form-control" name="estado" required>
+                                <option value="">Selecione um estado</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label for="cidade">Cidade de Saída:</label>
+                            <select id="cidade" class="form-control" name="cidade" required>
+                                <option value="">Selecione um estado primeiro</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="estado_destino">Estado de Destino:</label>
+                            <select id="estado_destino" class="form-control" name="estado_destino" required>
+                                <option value="">Selecione um estado</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label for="cidade_destino">Cidade de Destino:</label>
+                            <select id="cidade_destino" class="form-control" name="cidade_destino" required>
+                                <option value="">Selecione um estado primeiro</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Name input-->
+                            <label for="num_passageiros">Número de Passageiros:</label>
+                            <input class="form-control" id="num_passageiros" type="number" name="num_passageiros" required value="1"/>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <!-- Submit Button-->
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase mt-3" id="submitButton"
+                        type="submit">Registrar</button></div>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="js/viagem_onibus.js"></script>
+
+    <script>
+
+        function AdicionaLocal() {
+
+            let estado = document.getElementById('estado').value;
+            let cidade = document.getElementById('cidade').value;
+            let estado_destino = document.getElementById('estado_destino').value;
+            let cidade_destino = document.getElementById('cidade_destino').value;
+            let num_passageiros = document.getElementById('num_passageiros').value;
+
+            // Adiciona o usuário no banco de dados
+            addViagem(estado, cidade, estado_destino, cidade_destino, num_passageiros);
+
+            console.log("returning");
+
+            return true;
+
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Dicionário de estados e suas respectivas cidades
+            var cidadesPorEstado = {
+                "AC": ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira", "Tarauacá"],
+                "AL": ["Maceió", "Arapiraca", "Palmeira dos Índios", "Rio Largo"],
+                "AP": ["Macapá", "Santana", "Laranjal do Jari", "Oiapoque"],
+                "AM": ["Manaus", "Parintins", "Itacoatiara", "Manacapuru"],
+                "BA": ["Salvador", "Feira de Santana", "Vitória da Conquista", "Camaçari"],
+                "CE": ["Fortaleza", "Caucaia", "Juazeiro do Norte", "Maracanaú"],
+                "DF": ["Brasília", "Ceilândia", "Taguatinga", "Samambaia"],
+                "ES": ["Vitória", "Vila Velha", "Serra", "Cariacica"],
+                "GO": ["Goiânia", "Aparecida de Goiânia", "Anápolis", "Luziânia"],
+                "MA": ["São Luís", "Imperatriz", "São José de Ribamar", "Timon"],
+                "MT": ["Cuiabá", "Várzea Grande", "Rondonópolis", "Sinop"],
+                "MS": ["Campo Grande", "Dourados", "Três Lagoas", "Corumbá"],
+                "MG": ["Belo Horizonte", "Uberlândia", "Contagem", "Juiz de Fora"],
+                "PA": ["Belém", "Ananindeua", "Santarém", "Marabá"],
+                "PB": ["João Pessoa", "Campina Grande", "Santa Rita", "Patos"],
+                "PR": ["Curitiba", "Londrina", "Maringá", "Ponta Grossa"],
+                "PE": ["Recife", "Jaboatão dos Guararapes", "Olinda", "Caruaru"],
+                "PI": ["Teresina", "Parnaíba", "Picos", "Piripiri"],
+                "RJ": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias", "Nova Iguaçu"],
+                "RN": ["Natal", "Mossoró", "Parnamirim", "São Gonçalo do Amarante"],
+                "RS": ["Porto Alegre", "Caxias do Sul", "Pelotas", "Canoas"],
+                "RO": ["Porto Velho", "Ji-Paraná", "Ariquemes", "Vilhena"],
+                "RR": ["Boa Vista", "Caracaraí", "Mucajaí", "Rorainópolis"],
+                "SC": ["Florianópolis", "Joinville", "Blumenau", "São José"],
+                "SP": ["São Paulo", "Guarulhos", "Campinas", "São Bernardo do Campo"],
+                "SE": ["Aracaju", "Nossa Senhora do Socorro", "Lagarto", "Itabaiana"],
+                "TO": ["Palmas", "Araguaína", "Gurupi", "Porto Nacional"]
+};
+
+
+            // Preenche as opções do select de estados
+            var selectEstado = $("#estado");
+            for (var estado in cidadesPorEstado) {
+                selectEstado.append(new Option(estado, estado));
+            }
+
+            // Atualiza as opções do select de cidades com base no estado selecionado
+            selectEstado.change(function () {
+                var selectedEstado = $(this).val();
+                var selectCidade = $("#cidade");
+                selectCidade.empty(); // Remove as opções anteriores
+
+                // Preenche as opções do select de cidades com base no estado selecionado
+                if (selectedEstado in cidadesPorEstado) {
+                    var cidades = cidadesPorEstado[selectedEstado];
+                    for (var i = 0; i < cidades.length; i++) {
+                        selectCidade.append(new Option(cidades[i], cidades[i]));
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Dicionário de estados e suas respectivas cidades
+            var cidadesPorEstadoDestino = {
+                "AC": ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira", "Tarauacá"],
+                "AL": ["Maceió", "Arapiraca", "Palmeira dos Índios", "Rio Largo"],
+                "AP": ["Macapá", "Santana", "Laranjal do Jari", "Oiapoque"],
+                "AM": ["Manaus", "Parintins", "Itacoatiara", "Manacapuru"],
+                "BA": ["Salvador", "Feira de Santana", "Vitória da Conquista", "Camaçari"],
+                "CE": ["Fortaleza", "Caucaia", "Juazeiro do Norte", "Maracanaú"],
+                "DF": ["Brasília", "Ceilândia", "Taguatinga", "Samambaia"],
+                "ES": ["Vitória", "Vila Velha", "Serra", "Cariacica"],
+                "GO": ["Goiânia", "Aparecida de Goiânia", "Anápolis", "Luziânia"],
+                "MA": ["São Luís", "Imperatriz", "São José de Ribamar", "Timon"],
+                "MT": ["Cuiabá", "Várzea Grande", "Rondonópolis", "Sinop"],
+                "MS": ["Campo Grande", "Dourados", "Três Lagoas", "Corumbá"],
+                "MG": ["Belo Horizonte", "Uberlândia", "Contagem", "Juiz de Fora"],
+                "PA": ["Belém", "Ananindeua", "Santarém", "Marabá"],
+                "PB": ["João Pessoa", "Campina Grande", "Santa Rita", "Patos"],
+                "PR": ["Curitiba", "Londrina", "Maringá", "Ponta Grossa"],
+                "PE": ["Recife", "Jaboatão dos Guararapes", "Olinda", "Caruaru"],
+                "PI": ["Teresina", "Parnaíba", "Picos", "Piripiri"],
+                "RJ": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias", "Nova Iguaçu"],
+                "RN": ["Natal", "Mossoró", "Parnamirim", "São Gonçalo do Amarante"],
+                "RS": ["Porto Alegre", "Caxias do Sul", "Pelotas", "Canoas"],
+                "RO": ["Porto Velho", "Ji-Paraná", "Ariquemes", "Vilhena"],
+                "RR": ["Boa Vista", "Caracaraí", "Mucajaí", "Rorainópolis"],
+                "SC": ["Florianópolis", "Joinville", "Blumenau", "São José"],
+                "SP": ["São Paulo", "Guarulhos", "Campinas", "São Bernardo do Campo"],
+                "SE": ["Aracaju", "Nossa Senhora do Socorro", "Lagarto", "Itabaiana"],
+                "TO": ["Palmas", "Araguaína", "Gurupi", "Porto Nacional"]
+            };
+
+            // Preenche as opções do select de estados
+            var selectEstadoDestino = $("#estado_destino");
+            for (var estado in cidadesPorEstadoDestino) {
+                selectEstadoDestino.append(new Option(estado, estado));
+            }
+
+            // Atualiza as opções do select de cidades com base no estado selecionado
+            selectEstadoDestino.change(function () {
+                var selectedEstadoDestino = $(this).val();
+                var selectCidadeDestino = $("#cidade_destino");
+                selectCidadeDestino.empty(); // Remove as opções anteriores
+
+                // Preenche as opções do select de cidades com base no estado selecionado
+                if (selectedEstadoDestino in cidadesPorEstadoDestino) {
+                    var cidades = cidadesPorEstadoDestino[selectedEstadoDestino];
+                    for (var i = 0; i < cidades.length; i++) {
+                        selectCidadeDestino.append(new Option(cidades[i], cidades[i]));
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

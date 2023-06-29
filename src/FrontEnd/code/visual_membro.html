@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vizualizar</title>
+    <link rel="stylesheet" href="cadjogador.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body onload="init()" id="page-top">
+
+
+    <div class="container mt-4">
+        <div class="row">
+            <div id="msg" class="col-sm-10 offset-sm-1 ">
+                <!--<div class="alert alert-warning">Contato não encontrado.</div>-->
+            </div>
+        </div>
+
+        <form id="form-contato">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="id_membro">Id</label>
+                    <input type="text" class="form-control" id="id_membro" name="id_membro" placeholder="ID" disabled>
+                </div>
+                <div class="col-sm-4">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="col-sm-4">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" id="email" name="email" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone" required>
+                </div>
+                <div class="col-sm-6">
+                    <label for="passaporte">Passaporte</label>
+                    <input type="text" class="form-control" id="passaporte" name="passaporte" required>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <div class="col-sm-12">
+                    <input type="button" style="background-color: #ffc800;" class="btn text-white" id="btnDelete"
+                        value="Excluir">
+                    <input type="button" style="background-color: #ffc800;" class="btn text-white" id="btnClear"
+                        value="Limpar Form">
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="grid-contatos" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Sobrenome</th>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Passaporte</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-contatos">
+                        <tr>
+                            <td scope="row">1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-9"></div>
+
+        <div class="col-sm-2"><a href="index.html"><button type="button" style="background-color: #ffc800;"
+                    class="btn text-white">Voltar</button>
+        </div></a>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js%22%3E"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+
+    <script>
+
+        // Preenche o formulário quando o usuario clicar em uma linha da tabela 
+
+        $("#grid-contatos").on("click", "tr", function (e) {
+            let linhaContato = this;
+            colunas = linhaContato.querySelectorAll("td");
+
+            $("#id_membro").val(colunas[0].innerText);
+            $("#nome").val(colunas[1].innerText);
+            $("#sobrenome").val(colunas[2].innerText);
+            $("#cpf").val(colunas[3].innerText);
+            $("#email").val(colunas[4].innerText);
+            $("#telefone").val(colunas[5].innerText);
+            $("#passaporte").val(colunas[5].innerText);
+        });
+
+    </script>
+
+    <script src="js/membro.js"></script>
+    <script src="js/cadjogador.js"></script>
+
+    <script>
+
+        function init() {
+
+            // Intercepta o click do botão Excluir
+            $("#btnDelete").click(function () {
+                let campoId = $("#id_membro").val();
+                if (campoId == "") {
+                    displayMessage("Selecione um membro a ser excluído.");
+                    return;
+                }
+                deleteContato(campoId);
+
+                // Reexibe os contatos
+                exibeContatos();
+
+                // Limpa o formulario
+                $("#form-contato")[0].reset();
+            });
+
+            // Intercepta o click do botão Listar Contatos
+            $("#btnClear").click(function () {
+                $("#form-contato")[0].reset();
+            });
+
+            $("#grid-contatos").on("click", "tr", function (e) {
+                let linhaContato = this;
+                colunas = linhaContato.querySelectorAll("td");
+
+                $("#id_membro").val(colunas[0].innerText);
+                $("#nome").val(colunas[1].innerText);
+                $("#sobrenome").val(colunas[2].innerText);
+                $("#cpf").val(colunas[3].innerText);
+                $("#email").val(colunas[4].innerText);
+                $("#telefone").val(colunas[5].innerText);
+                $("#passaporte").val(colunas[5].innerText);
+            });
+
+            exibeContatos();
+        }
+    </script>
+
+</body>
+
+</html>

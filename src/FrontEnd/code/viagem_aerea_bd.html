@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MarcoL4</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+
+
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="viagem_aerea_inicio.html">MarcoL4</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="page-section" id="criar_clube">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Registre suas Viagens</h2>
+                <h3 class="section-subheading">Deixe Registrado suas viagens</h3>
+            </div>
+
+
+            <form action="/submit-form-viagem-aerea-bd" method="post" id="registra_viagem_form" onsubmit="AdicionaLocal()">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="estado">Estado de Sáida:</label>
+                            <select id="estado" class="form-control" name="estado" required>
+                                <option value="">Selecione um estado</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label for="cidade">Cidade de Saída:</label>
+                            <select id="cidade" class="form-control" name="cidade" required>
+                                <option value="">Selecione um estado primeiro</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="estado_destino">Estado de Destino:</label>
+                            <select id="estado_destino" class="form-control" name="estado_destino" required>
+                                <option value="">Selecione um estado</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label for="cidade_destino">Cidade de Destino:</label>
+                            <select id="cidade_destino" class="form-control" name="cidade_destino" required>
+                                <option value="">Selecione um estado primeiro</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Name input-->
+                            <label for="num_passageiros">Número de Passageiros:</label>
+                            <input class="form-control" id="num_passageiros" type="number" name="num_passageiros" required value="1"/>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <!-- Submit Button-->
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase mt-3" id="submitButton"
+                        type="submit">Registrar</button></div>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="js/viagem_aerea.js"></script>
+
+    <script>
+
+        function AdicionaLocal() {
+
+            let estado = document.getElementById('estado').value;
+            let cidade = document.getElementById('cidade').value;
+            let estado_destino = document.getElementById('estado_destino').value;
+            let cidade_destino = document.getElementById('cidade_destino').value;
+            let num_passageiros = document.getElementById('num_passageiros').value;
+
+            // Adiciona o usuário no banco de dados
+            addViagem(estado, cidade, estado_destino, cidade_destino, num_passageiros);
+
+            console.log("returning");
+
+            return true;
+
+        }
+
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Dicionário de estados e suas respectivas cidades
+            var cidadesPorEstado = {
+  "AC": ["Rio Branco - RBR", "Cruzeiro do Sul - CZS"],
+  "AL": ["Maceió - MCZ"],
+  "AP": ["Macapá - MCP"],
+  "AM": ["Manaus - MAO"],
+  "BA": ["Salvador - SSA", "Porto Seguro - BPS", "Ilhéus - IOS"],
+  "CE": ["Fortaleza - FOR", "Juazeiro do Norte - JDO"],
+  "DF": ["Brasília - BSB"],
+  "ES": ["Vitória - VIX"],
+  "GO": ["Goiânia - GYN"],
+  "MA": ["São Luís - SLZ", "Imperatriz - IMP"],
+  "MT": ["Cuiabá - CGB"],
+  "MS": ["Campo Grande - CGR"],
+  "MG": ["Belo Horizonte - CNF", "Uberlândia - UDI", "Montes Claros - MOC"],
+  "PA": ["Belém - BEL", "Santarém - STM", "Marabá - MAB"],
+  "PB": ["João Pessoa - JPA", "Campina Grande - CPV"],
+  "PR": ["Curitiba - CWB", "Maringá - MGF", "Londrina - LDB", "Foz do Iguaçu - IGU"],
+  "PE": ["Recife - REC", "Petrolina - PNZ"],
+  "PI": ["Teresina - THE"],
+  "RJ": ["Rio de Janeiro - GIG", "Santos Dumont - SDU", "Cabo Frio - CFB"],
+  "RN": ["Natal - NAT"],
+  "RS": ["Porto Alegre - POA", "Caxias do Sul - CXJ"],
+  "RO": ["Porto Velho - PVH"],
+  "RR": ["Boa Vista - BVB"],
+  "SC": ["Florianópolis - FLN", "Navegantes - NVT", "Joinville - JOI", "Chapecó - XAP"],
+  "SP": ["São Paulo - CGH", "Campinas - VCP", "Guarulhos - GRU", "Presidente Prudente - PPB", "Bauru - JTC"],
+  "SE": ["Aracaju - AJU"],
+  "TO": ["Palmas - PMW"]
+};
+
+
+            // Preenche as opções do select de estados
+            var selectEstado = $("#estado");
+            for (var estado in cidadesPorEstado) {
+                selectEstado.append(new Option(estado, estado));
+            }
+
+            // Atualiza as opções do select de cidades com base no estado selecionado
+            selectEstado.change(function () {
+                var selectedEstado = $(this).val();
+                var selectCidade = $("#cidade");
+                selectCidade.empty(); // Remove as opções anteriores
+
+                // Preenche as opções do select de cidades com base no estado selecionado
+                if (selectedEstado in cidadesPorEstado) {
+                    var cidades = cidadesPorEstado[selectedEstado];
+                    for (var i = 0; i < cidades.length; i++) {
+                        selectCidade.append(new Option(cidades[i], cidades[i]));
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Dicionário de estados e suas respectivas cidades
+            var cidadesPorEstadoDestino = {
+                "AC": ["Rio Branco - RBR", "Cruzeiro do Sul - CZS"],
+  "AL": ["Maceió - MCZ"],
+  "AP": ["Macapá - MCP"],
+  "AM": ["Manaus - MAO"],
+  "BA": ["Salvador - SSA", "Porto Seguro - BPS", "Ilhéus - IOS"],
+  "CE": ["Fortaleza - FOR", "Juazeiro do Norte - JDO"],
+  "DF": ["Brasília - BSB"],
+  "ES": ["Vitória - VIX"],
+  "GO": ["Goiânia - GYN"],
+  "MA": ["São Luís - SLZ", "Imperatriz - IMP"],
+  "MT": ["Cuiabá - CGB"],
+  "MS": ["Campo Grande - CGR"],
+  "MG": ["Belo Horizonte - CNF", "Uberlândia - UDI", "Montes Claros - MOC"],
+  "PA": ["Belém - BEL", "Santarém - STM", "Marabá - MAB"],
+  "PB": ["João Pessoa - JPA", "Campina Grande - CPV"],
+  "PR": ["Curitiba - CWB", "Maringá - MGF", "Londrina - LDB", "Foz do Iguaçu - IGU"],
+  "PE": ["Recife - REC", "Petrolina - PNZ"],
+  "PI": ["Teresina - THE"],
+  "RJ": ["Rio de Janeiro - GIG", "Santos Dumont - SDU", "Cabo Frio - CFB"],
+  "RN": ["Natal - NAT"],
+  "RS": ["Porto Alegre - POA", "Caxias do Sul - CXJ"],
+  "RO": ["Porto Velho - PVH"],
+  "RR": ["Boa Vista - BVB"],
+  "SC": ["Florianópolis - FLN", "Navegantes - NVT", "Joinville - JOI", "Chapecó - XAP"],
+  "SP": ["São Paulo - CGH", "Campinas - VCP", "Guarulhos - GRU", "Presidente Prudente - PPB", "Bauru - JTC"],
+  "SE": ["Aracaju - AJU"],
+  "TO": ["Palmas - PMW"]
+            };
+
+            // Preenche as opções do select de estados
+            var selectEstadoDestino = $("#estado_destino");
+            for (var estado in cidadesPorEstadoDestino) {
+                selectEstadoDestino.append(new Option(estado, estado));
+            }
+
+            // Atualiza as opções do select de cidades com base no estado selecionado
+            selectEstadoDestino.change(function () {
+                var selectedEstadoDestino = $(this).val();
+                var selectCidadeDestino = $("#cidade_destino");
+                selectCidadeDestino.empty(); // Remove as opções anteriores
+
+                // Preenche as opções do select de cidades com base no estado selecionado
+                if (selectedEstadoDestino in cidadesPorEstadoDestino) {
+                    var cidades = cidadesPorEstadoDestino[selectedEstadoDestino];
+                    for (var i = 0; i < cidades.length; i++) {
+                        selectCidadeDestino.append(new Option(cidades[i], cidades[i]));
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

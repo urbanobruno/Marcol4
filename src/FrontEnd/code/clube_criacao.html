@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MarcoL4</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+
+
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MarcoL4</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="page-section" id="criar_clube">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Crie seu clube</h2>
+                <h3 class="section-subheading">Adicione as informações do seu clube</h3>
+            </div>
+
+
+            <form action="/submit-form-clube" method="post" id="criar_clube_form" onsubmit="return CriaClube()">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Name input-->
+                            <label for="nome">Nome:</label>
+                            <input class="form-control" id="nome" type="text" name="nome" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- Email input-->
+                            <label for="email">E-mail:</label>
+                            <input class="form-control" id="email" type="email" name="email" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="estado_destino">Estado:</label>
+                            <select id="estado_destino" class="form-control" required>
+                                <option value="">Selecione um estado</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label for="cidade_destino">Cidade:</label>
+                            <select id="cidade_destino" class="form-control" required>
+                                <option value="">Selecione um estado primeiro</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Telefone input-->
+                            <label for="telefone">Telefone:</label>
+                            <input class="form-control" id="telefone" type="number" name="telefone" required />
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Submit Button-->
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase mt-3" id="submitButton"
+                        type="submit">Criar Clube</button></div>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Dicionário de estados e suas respectivas cidades
+            var cidadesPorEstadoDestino = {
+                "Acre": ["Rio Branco", "Cruzeiro do Sul", "Sena Madureira", "Tarauacá"],
+                "Alagoas": ["Maceió", "Arapiraca", "Palmeira dos Índios", "Rio Largo"],
+                "Amapá": ["Macapá", "Santana", "Laranjal do Jari", "Oiapoque"],
+                "Amazonas": ["Manaus", "Parintins", "Itacoatiara", "Manacapuru"],
+                "Bahia": ["Salvador", "Feira de Santana", "Vitória da Conquista", "Camaçari"],
+                "Ceará": ["Fortaleza", "Caucaia", "Juazeiro do Norte", "Maracanaú"],
+                "Distrito Federal": ["Brasília", "Ceilândia", "Taguatinga", "Samambaia"],
+                "Espírito Santo": ["Vitória", "Vila Velha", "Serra", "Cariacica"],
+                "Goiás": ["Goiânia", "Aparecida de Goiânia", "Anápolis", "Luziânia"],
+                "Maranhão": ["São Luís", "Imperatriz", "São José de Ribamar", "Timon"],
+                "Mato Grosso": ["Cuiabá", "Várzea Grande", "Rondonópolis", "Sinop"],
+                "Mato Grosso do Sul": ["Campo Grande", "Dourados", "Três Lagoas", "Corumbá"],
+                "Minas Gerais": ["Belo Horizonte", "Uberlândia", "Contagem", "Juiz de Fora"],
+                "Pará": ["Belém", "Ananindeua", "Santarém", "Marabá"],
+                "Paraíba": ["João Pessoa", "Campina Grande", "Santa Rita", "Patos"],
+                "Paraná": ["Curitiba", "Londrina", "Maringá", "Ponta Grossa"],
+                "Pernambuco": ["Recife", "Jaboatão dos Guararapes", "Olinda", "Caruaru"],
+                "Piauí": ["Teresina", "Parnaíba", "Picos", "Piripiri"],
+                "Rio de Janeiro": ["Rio de Janeiro", "São Gonçalo", "Duque de Caxias", "Nova Iguaçu"],
+                "Rio Grande do Norte": ["Natal", "Mossoró", "Parnamirim", "São Gonçalo do Amarante"],
+                "Rio Grande do Sul": ["Porto Alegre", "Caxias do Sul", "Pelotas", "Canoas"],
+                "Rondônia": ["Porto Velho", "Ji-Paraná", "Ariquemes", "Vilhena"],
+                "Roraima": ["Boa Vista", "Caracaraí", "Mucajaí", "Rorainópolis"],
+                "Santa Catarina": ["Florianópolis", "Joinville", "Blumenau", "São José"],
+                "São Paulo": ["São Paulo", "Guarulhos", "Campinas", "São Bernardo do Campo"],
+                "Sergipe": ["Aracaju", "Nossa Senhora do Socorro", "Lagarto", "Itabaiana"],
+                "Tocantins": ["Palmas", "Araguaína", "Gurupi", "Porto Nacional"]
+            };
+
+            // Preenche as opções do select de estados
+            var selectEstadoDestino = $("#estado_destino");
+            for (var estado in cidadesPorEstadoDestino) {
+                selectEstadoDestino.append(new Option(estado, estado));
+            }
+
+            // Atualiza as opções do select de cidades com base no estado selecionado
+            selectEstadoDestino.change(function () {
+                var selectedEstadoDestino = $(this).val();
+                var selectCidadeDestino = $("#cidade_destino");
+                selectCidadeDestino.empty(); // Remove as opções anteriores
+
+                // Preenche as opções do select de cidades com base no estado selecionado
+                if (selectedEstadoDestino in cidadesPorEstadoDestino) {
+                    var cidades = cidadesPorEstadoDestino[selectedEstadoDestino];
+                    for (var i = 0; i < cidades.length; i++) {
+                        selectCidadeDestino.append(new Option(cidades[i], cidades[i]));
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script src="js/clube.js"></script>
+
+    <script>
+        function CriaClube() {
+
+            let nome = document.getElementById('nome').value;
+            let email = document.getElementById('email').value;
+            let estado = document.getElementById('estado_destino').value;
+            let cidade = document.getElementById('cidade_destino').value;
+            let telefone = document.getElementById('telefone').value;
+
+            addClube(nome, email, estado, cidade, telefone);
+
+            return true;
+
+        }
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

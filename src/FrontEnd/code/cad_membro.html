@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MarcoL4</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MarcoL4</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section class="page-section" id="dados_viagem_onibus">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Cadastre os Membros do Clube</h2>
+                <h3 class="section-subheading">Adicione as informações referentes aos membros</h3>
+            </div>
+
+
+            <form action="/submit-form-membros" method="post" id="membro_bd_form" onsubmit="return AdicionaLocal()">
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="nome">Nome:</label>
+                            <input class="form-control" id="nome" type="text" name="nome" required />
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="sobrenome">Sobrenome:</label>
+                            <input class="form-control" id="sobrenome" type="text" name="sobrenome" required />
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="CPF">CPF:</label>
+                            <input class="form-control" id="CPF" type="text" name="CPF" required />
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="email">Email:</label>
+                            <input class="form-control" id="email" type="email" name="email" required />
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="telefone">Telefone:</label>
+                            <input class="form-control" id="telefone" type="text" name="telefone" required />
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <!-- Estado input-->
+                            <label for="passaporte">Passaporte:</label>
+                            <input class="form-control" id="passaporte" type="text" name="passaporte" required />
+
+                        </div>
+                    </div>
+
+                </div>
+            
+
+                <!-- Submit Button-->
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase mt-3" id="submitButton"
+                        type="submit">Cadastrar</button></div>
+            </form>
+        </div>
+    </section>
+
+    <script src="js/membro.js"></script>
+
+    <script>
+
+        function AdicionaLocal() {
+            
+            let nome = document.getElementById('nome').value;
+            let sobrenome = document.getElementById('sobrenome').value;
+            let cpf = document.getElementById('CPF').value;
+            let email = document.getElementById('email').value;
+            let telefone = document.getElementById('telefone').value;
+            let passaporte = document.getElementById('passaporte').value;
+
+            addMembro(nome, sobrenome, cpf, email, telefone, passaporte);
+
+            return true;
+
+        }
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

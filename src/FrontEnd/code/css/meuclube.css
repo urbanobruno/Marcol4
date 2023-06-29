@@ -1,0 +1,47 @@
+html, body {
+  height: 100vh;
+}
+
+body {
+        background-image: url(../assets/img/img7.jpg);
+        background-position: center center;
+        background-repeat: repeat !important;
+        background-attachment: fixed;
+        background-size: cover;
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 767px) {
+    body {
+    overflow-y:auto !important;
+      background-image: url(../assets/img/img7.jpg);
+    }
+    #cardcinza {
+      border-radius:8px 8px 0px 0px !important;
+    }
+      }
+  
+
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #ffc800;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: #ffc800;
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: #ffc800;
+}
+
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+}
+
