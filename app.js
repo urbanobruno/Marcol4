@@ -12,12 +12,7 @@ app.set('view engine', 'ejs');
 // Set up body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve the HTML form
-//app.get('/', (req, res) => {
-//    res.sendFile(__dirname + '/src/FrontEnd/code/index.html');
-//});
-
-app.use(express.static(__dirname + '/src/FrontEnd/code'));
+app.use(express.static(__dirname + '/src/code'));
 
 // Handle form submission
 app.post('/submit-form', (req, res) => {
@@ -55,6 +50,8 @@ app.post('/submit-form', (req, res) => {
 
 });
 
+
+// Todo fix indicadores
 // Handle form submission
 app.post('/indicadores', (req, res) => {
     
@@ -72,9 +69,8 @@ app.post('/indicadores', (req, res) => {
             res.status(500).send('Error connecting to the MySQL database');
             return;
         }
-
-        // Insert usuarios data into the database
-        // const query = 'select * from usuarios;'
+        
+        // todo check
         const query = 'SELECT  ( SELECT COUNT(*) / (SELECT COUNT(*) FROM usuarios) FROM usuarios WHERE data_criacao_conta >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ) AS ind1, ( SELECT COUNT(*) / (SELECT COUNT(*) FROM ViagensAereas)  FROM ViagensAereas WHERE dia_cadastro >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ) AS ind2, ( SELECT COUNT(*) / (SELECT COUNT(*) FROM ViagensOnibus) FROM ViagensOnibus WHERE dia_cadastro >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ) AS ind3, ( SELECT COUNT(*) / (SELECT COUNT(*) FROM Hoteis)  FROM Hoteis WHERE dia_cadastro >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ) AS ind4, (SELECT nome, COUNT(*) as Quantidade FROM Hoteis GROUP BY nome ORDER BY Quantidade DESC LIMIT 1) as ind5, (SELECT estado_destino, COUNT(*) as Quantidade FROM ViagensAereas GROUP BY estado_destino ORDER BY Quantidade DESC LIMIT 1) as ind6;';
         connection.query(query, (error, results) => {
             if (error) {
