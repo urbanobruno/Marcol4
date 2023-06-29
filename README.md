@@ -1,6 +1,6 @@
 # MarcoL4
 
-![Badge Status](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=yellow&style=for-the-badge)
+![Badge Status](http://img.shields.io/static/v1?label=STATUS&message=EM%20FINALIZADO&color=green&style=for-the-badge)
 
 O projeto tem como principal objetivo fornecer uma ferramenta de fácil acesso capaz de auxiliar clubes/times de futebol na gestão de suas logísticas.
 
